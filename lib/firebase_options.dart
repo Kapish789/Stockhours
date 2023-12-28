@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDVZOy6AN7ToLAJ4zHfKu0ilNLgvV1Xax8',
-    appId: '1:758443343953:android:f1a699dcaaae712a993870',
+    appId: '1:758443343953:android:4fd79ff83914b478993870',
     messagingSenderId: '758443343953',
     projectId: 'stock-hours',
     storageBucket: 'stock-hours.appspot.com',
@@ -59,10 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAmvIuaxDzb0ZPpysfWKI7xwtIwlEyA6u0',
-    appId: '1:758443343953:ios:064301ad9ce397ee993870',
+    appId: '1:758443343953:ios:959ec9be6cdf5d47993870',
     messagingSenderId: '758443343953',
     projectId: 'stock-hours',
     storageBucket: 'stock-hours.appspot.com',
-    iosBundleId: 'com.example.stockHours',
+    iosBundleId: 'com.onekapisch.stockhours',
   );
 }

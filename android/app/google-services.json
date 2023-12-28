@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "758443343953",
+    "project_id": "stock-hours",
+    "storage_bucket": "stock-hours.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758443343953:android:4fd79ff83914b478993870",
+        "android_client_info": {
+          "package_name": "com.onekapisch.stockhours"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZOy6AN7ToLAJ4zHfKu0ilNLgvV1Xax8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
