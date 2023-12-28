@@ -1,0 +1,9 @@
+package_rename_config:
+  android:
+    app_name: Stock Hours
+    package_name: com.onekapisch.stockhours
+
+  ios:
+    app_name: Stock Hours
+    bundle_name: com.onekapisch.stockhours
+    package_name: com.onekapisch.stockhours
