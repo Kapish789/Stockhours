@@ -50,6 +50,7 @@ class MarketsScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
           child: marketList.markets.isNotEmpty
               ? SingleChildScrollView(
@@ -58,34 +59,12 @@ class MarketsScreen extends StatelessWidget {
                         horizontal: 20, vertical: 10),
                     child: Column(
                       children: [
-                        const Text(
-                          "Open Markets",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
                         ListMarkets(
                           marketsList: openMarkets,
                           areOpen: true,
                         ),
                         const SizedBox(
-                          height: 15,
-                        ),
-                        const Text(
-                          "Close Markets",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         ListMarkets(
                           marketsList: closeMarkets,
@@ -142,13 +121,11 @@ class MarketCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: isOpen
             ? CupertinoColors.activeGreen.withOpacity(0.5)
-            : CupertinoColors.systemGrey4,
+            : Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Stack(
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         alignment: Alignment.center,
         children: [
           Align(
@@ -169,9 +146,9 @@ class MarketCard extends StatelessWidget {
                 ),
                 Text(
                   market.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.onBackground,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -180,15 +157,17 @@ class MarketCard extends StatelessWidget {
           ),
           Center(
             child: isOpen
-                ? const Text(
+                ? Text(
                     "Open",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                   )
-                : const Text(
+                : Text(
                     "Close",
                     style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -196,8 +175,18 @@ class MarketCard extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: isOpen
-                ? Text("Closes at: ${market.close}")
-                : Text("Opens at: ${market.open}"),
+                ? Text(
+                    "Closes at: ${market.close}",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                  )
+                : Text(
+                    "Opens at: ${market.open}",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                  ),
           )
         ],
       ),

@@ -5,8 +5,9 @@ class TimelineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const SafeArea(
           child: Center(
         child: Text("Timeline screen here."),
       )),

@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +31,39 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: NavBar(),
+        theme: ThemeData(
+          colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: CupertinoColors.activeBlue,
+            onPrimary: Colors.white,
+            secondary: CupertinoColors.systemGrey,
+            onSecondary: Colors.black,
+            error: CupertinoColors.destructiveRed,
+            onError: Colors.black,
+            background: CupertinoColors.white,
+            onBackground: Colors.black,
+            surface: CupertinoColors.systemGrey,
+            onSurface: Colors.black,
+            inversePrimary: CupertinoColors.darkBackgroundGray,
+          ),
+        ),
+        darkTheme: ThemeData(
+          colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: CupertinoColors.activeBlue,
+            onPrimary: Colors.white,
+            secondary: CupertinoColors.systemGrey,
+            onSecondary: Colors.black,
+            error: CupertinoColors.destructiveRed,
+            onError: Colors.black,
+            background: CupertinoColors.darkBackgroundGray,
+            onBackground: Colors.white,
+            surface: CupertinoColors.white,
+            onSurface: Colors.black,
+            inversePrimary: Colors.white,
+          ),
+        ),
+        themeMode: ThemeMode.system,
       ),
     );
   }

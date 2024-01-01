@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:stock_hours/screens/markets_screen.dart';
@@ -15,12 +16,10 @@ class NavBar extends StatelessWidget {
     _controller = PersistentTabController(initialIndex: 0);
     return PersistentTabView(
       context,
+      backgroundColor: Theme.of(context).colorScheme.background,
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.easeOutCubic,
-      ),
-      itemAnimationProperties: const ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
       ),
       controller: _controller,
       navBarStyle: NavBarStyle.style11,
