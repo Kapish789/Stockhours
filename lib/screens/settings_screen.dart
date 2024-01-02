@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:stock_hours/services/preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,43 +12,59 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    Preferences prefs = Provider.of<Preferences>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             children: [
               SwitchSettingsCard(
                 text: "App notifications",
+                enabled: prefs.notifications,
+                onValueChange: (value) async {
+                  await prefs.setNotifications(value);
+                },
                 expandable: true,
-                expandChildren: [
-                  TextButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.primary,
+                expandChild: Column(
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextButton(
+                      onPressed: () async {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      child: Text(
+                        "Customize notifications",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    child: Text(
-                      "Customize notifications",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                ],
+                  ],
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               SwitchSettingsCard(
-                text: "Theme mode",
+                text: "Dark mode",
+                enabled: prefs.themeMode == ThemeMode.dark,
+                onValueChange: (value) async {
+                  await prefs
+                      .setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
+                },
               ),
+              Text(prefs.notifications.toString()),
             ],
           ),
         ),
@@ -63,12 +81,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 class SwitchSettingsCard extends StatefulWidget {
   final bool expandable;
   final String text;
-  final List<Widget> expandChildren;
+  final Widget expandChild;
+  final bool enabled;
+  final void Function(bool value) onValueChange;
   const SwitchSettingsCard({
     super.key,
     this.expandable = false,
     required this.text,
-    this.expandChildren = const [],
+    this.expandChild = const SizedBox(),
+    required this.enabled,
+    required this.onValueChange,
   });
 
   @override
@@ -77,65 +99,37 @@ class SwitchSettingsCard extends StatefulWidget {
 
 class _SwitchSettingsCardState extends State<SwitchSettingsCard> {
   ExpansionTileController tileController = ExpansionTileController();
-  bool optionValue = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onBackground.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10)),
-      child: widget.expandable
-          ? Theme(
-              data: ThemeData().copyWith(
-                dividerColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.text,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.inversePrimary),
               ),
-              child: ExpansionTile(
-                onExpansionChanged: (value) {
-                  if (value && !optionValue) {
-                    tileController.collapse();
-                  }
-                  if (!value && optionValue) {
-                    tileController.expand();
-                  }
-                },
-                title: const Text("App notifications"),
-                backgroundColor: Colors.transparent,
-                controller: tileController,
-                trailing: Switch.adaptive(
-                  value: optionValue,
-                  onChanged: (value) {
-                    setState(() {
-                      optionValue = value;
-                    });
-                    if (value) tileController.expand();
-                    if (!value) tileController.collapse();
-                  },
-                ),
-                children: widget.expandChildren,
-              ),
-            )
-          : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.text),
-                  Switch.adaptive(
-                    value: optionValue,
-                    onChanged: (value) {
-                      setState(() {
-                        optionValue = value;
-                      });
-                      if (value) tileController.expand();
-                      if (!value) tileController.collapse();
-                    },
-                  ),
-                ],
-              ),
+              Switch.adaptive(
+                thumbColor: MaterialStatePropertyAll(
+                    Theme.of(context).colorScheme.background),
+                  activeColor: Theme.of(context).colorScheme.primary,
+                value: widget.enabled,
+                onChanged: widget.onValueChange,
+              )
+            ],
           ),
+          if (widget.expandable && widget.enabled) widget.expandChild
+        ],
+      ),
     );
   }
 }
