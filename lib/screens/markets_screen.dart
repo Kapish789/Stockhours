@@ -1,4 +1,3 @@
-import 'package:country_flags/country_flags.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -130,30 +129,8 @@ class MarketCard extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CountryFlag.fromCountryCode(
-                  market.flag,
-                  height: 15,
-                  width: 15,
-                  borderRadius: 5,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  market.name,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Theme.of(context).colorScheme.onBackground,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
+            child:
+                market.getLabel(Theme.of(context).colorScheme.inversePrimary),
           ),
           Center(
             child: isOpen
